@@ -1,7 +1,4 @@
 
-
-using Newtonsoft.Json;
-
 namespace MoviePlatformApi.Models
 {
 
@@ -23,18 +20,18 @@ namespace MoviePlatformApi.Models
 
         public string Actors { get; set; }
 
-        public string Plots { get; set; }
+        public string Plot { get; set; }
         public string Language { get; set; }
         public string Country { get; set; }
         public string Awards { get; set; }
         public string Poster { get; set; }
         public List<Rating> Ratings { get; set; } = new List<Rating>();
         public string Metascore { get; set; }
-        [JsonProperty("imdbRating")]
+
         public string imdbRating { get; set; }
-        [JsonProperty("imdbVotes")]
+
         public string imdbVotes { get; set; }
-        [JsonProperty("imdbID")]
+
         public string imdbID { get; set; }
         public string Type { get; set; }
         public string DVD { get; set; }
