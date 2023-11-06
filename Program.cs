@@ -75,14 +75,15 @@ app.Use(async (httpContext, next) =>
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-       {
-           c.SwaggerEndpoint("./swagger/v1/swagger.json", "Movie API Doc");
-           c.RoutePrefix = string.Empty;
-       });
+
     setting.IsProduction = false;
 }
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+   {
+       c.SwaggerEndpoint("./swagger/v1/swagger.json", "Movie API Doc");
+       c.RoutePrefix = string.Empty;
+   });
 AuthService.SeedAppDefault(setting);
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseMiddleware<InterceptorMiddleware>();
