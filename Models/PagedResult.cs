@@ -1,5 +1,5 @@
 
-namespace DeviceManagement.Models
+namespace MoviePlatformApi.Models
 {
     public class PagedResult<T>
     {

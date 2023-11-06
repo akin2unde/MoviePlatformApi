@@ -1,4 +1,6 @@
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using MoviePlatformApi.Models;
 using MoviePlatformApi.Services;
 
 namespace MoviePlatformApi.Controllers;
@@ -15,10 +17,42 @@ public class MovieController : ControllerBase
         Service = service;
     }
 
-    [HttpGet("GetMovieByTitle/{searchStr}")]
-    public async Task<IActionResult> GetPlayers(string searchStr)
+    [HttpGet("GetAll/{skip?}/{limit?}")]
+    public IActionResult GetAll(int skip, int limit)
     {
-        var res = await Service.Get(searchStr);
-        return Ok(res);
+        var result = Service.Get(skip, limit);
+        return Ok(result); ;
     }
+
+    [HttpGet("GetWithId/{param:length(24)}")]
+    public IActionResult GetWithId(string param)
+    {
+        var result = Service.Get(a => a.Id == param);
+        return Ok(result);
+    }
+    [HttpPost("Save")]
+    public IActionResult Post([FromBody] List<Movie> values)
+    {
+        if (values != null)
+        {
+            var result = Service.Save(values);
+            return Ok(result);
+        }
+        return NotFound(new Error { ErrorMsg = "No data recieved", StatusCode = (int)HttpStatusCode.Forbidden });
+    }
+
+    [HttpDelete("Delete")]
+    public IActionResult Delete([FromQuery] string ids)
+    {
+        if (string.IsNullOrWhiteSpace(ids))
+        {
+            return NotFound(new Error { ErrorMsg = "Server didnt recieve any delete data", StatusCode = (int)HttpStatusCode.Forbidden });
+        }
+        Service.Remove(ids);
+        return NoContent();
+    }
+
+    [HttpGet("Search/{param}/{skip?}/{limit?}")]
+    public ActionResult<List<Movie>> Search(string param, int skip, int limit) => Ok(Service.Search(param, skip, limit));
+
 }
