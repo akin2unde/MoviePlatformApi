@@ -19,6 +19,12 @@ Application Summary
 
 The application is divided into Extensions, Configuration,  Model, Util, Service, Middleware  and Controller.
 
+The Application is currently hosted here https://movieapi.techlivate.com.
+
+Thanks.
+
+
+
 
 
 
