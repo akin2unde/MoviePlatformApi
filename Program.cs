@@ -42,6 +42,20 @@ builder.Services.Configure<JsonOptions>(options =>
 builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseStaticFiles(new StaticFileOptions()
+{
+    ServeUnknownFileTypes = true,
+    DefaultContentType = "text/plain",
+    OnPrepareResponse = (context) =>
+    {
+        var headers = context.Context.Response.GetTypedHeaders();
+        headers.CacheControl = new Microsoft.Net.Http.Headers.CacheControlHeaderValue
+        {
+            Public = true,
+            MaxAge = TimeSpan.FromDays(30)
+        };
+    }
+});
 //validate
 app.Use(async (httpContext, next) =>
 {
