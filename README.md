@@ -21,6 +21,8 @@ The application is divided into Extensions, Configuration,  Model, Util, Service
 
 The Application is currently hosted here https://movieapi.techlivate.com.
 
+Note: BaseURL is required to get the full path of the image e.g  https://movieapi.techlivate.com/media/Avenger/avenger.png
+
 Thanks.
 
 
